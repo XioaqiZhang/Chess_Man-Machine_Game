@@ -6,38 +6,37 @@ class CMoveGenerator
 {
 public:
     CMoveGenerator();
-    //virtual ±íÊ¾ÉúÃüÎªĞéº¯Êı£¬ÒâÒåÔİÊ±²»Çå³ş  ¡°~¡±µÄÒâÒåÍü¼ÇÁË
     virtual ~CMoveGenerator();
-    //ÓÃÒÔ¼ì²éÒ»¸ö×ß·¨ÊÇ·ñºÏ·¨µÄ¾²Ì¬º¯Êı
+    //ç”¨ä»¥æ£€æŸ¥ä¸€ä¸ªèµ°æ³•æ˜¯å¦åˆæ³•çš„é™æ€å‡½æ•°
     static bool IsValidMove(BYTE position[10][9], int nFromX,
                             int nFromY, int nToX, int nToY);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄËùÓĞºÏ·¨×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„æ‰€æœ‰åˆæ³•èµ°æ³•
     int CreatepossibleMove(BYTE position[10][9], int nPly, int nSide);
-    //´æ·ÅCreatepossibleMove²úÉúµÄËùÓĞ×ß·¨µÄ¶ÓÁĞ
+    //å­˜æ”¾CreatepossibleMoveäº§ç”Ÿçš„æ‰€æœ‰èµ°æ³•çš„é˜Ÿåˆ—
     CHESSMOVE m_MoveList[8][80];
 
 protected:
-    //ÔÚm_MoveListÖĞ²åÈëÒ»¸ö×ß·¨
+    //åœ¨m_MoveListä¸­æ’å…¥ä¸€ä¸ªèµ°æ³•
     int AddMove(int nFromX, int nFromY, int nToX, int nToY, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄ½«/Ë§µÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„å°†/å¸…çš„èµ°æ³•
     void Gen_KingMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºìÊËµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„çº¢ä»•çš„èµ°æ³•
     void Gen_RBishopMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºÚÊ¿µÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é»‘å£«çš„èµ°æ³•
     void Gen_BBishopMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÏà/ÏóµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„ç›¸/è±¡çš„èµ°æ³•
     void Gen_ElephantMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÂíµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é©¬çš„èµ°æ³•
     void Gen_HorseMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÜ‡µÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„è»Šçš„èµ°æ³•
     void Gen_CarMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºì×äµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„çº¢å’çš„èµ°æ³•
     void Gen_RPawnMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºÚ±øµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é»‘å…µçš„èµ°æ³•
     void Gen_BPawnMove(BYTE position[10][9], int i, int j, int nPly);
-    //²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÅÚµÄ×ß·¨
+    //äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„ç‚®çš„èµ°æ³•
     void Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly);
-    int m_nMoveCount;//¼ÇÂ¼m_MoveListÖĞ×ß·¨µÄÊıÁ¿
+    int m_nMoveCount;//è®°å½•m_MoveListä¸­èµ°æ³•çš„æ•°é‡
 
 };
 

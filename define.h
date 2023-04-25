@@ -3,40 +3,40 @@
 
 #define BYTE unsigned char
 
-#define NOCHESS     0  //Ã»ÓÐÆå×Ó
-#define B_KING      1  //ºÚ½«
-#define B_CAR       2  //ºÚ³µ
-#define B_HORSE     3  //ºÚÂí
-#define B_CANNON    4  //ºÚÅÚ
-#define B_BISHOP    5  //ºÚÊ¿
-#define B_ELEPHANT  6  //ºÚÏà
-#define B_PAWN      7  //ºÚ×ä
+#define NOCHESS     0  //æ²¡æœ‰æ£‹å­
+#define B_KING      1  //é»‘å°†
+#define B_CAR       2  //é»‘è½¦
+#define B_HORSE     3  //é»‘é©¬
+#define B_CANNON    4  //é»‘ç‚®
+#define B_BISHOP    5  //é»‘å£«
+#define B_ELEPHANT  6  //é»‘ç›¸
+#define B_PAWN      7  //é»‘å’
 #define B_BEGIN     B_KING
 #define B_END       B_PAWN
 
-#define R_KING      8  //ºì½«
-#define R_CAR       9  //ºì³µ
-#define R_HORSE     10 //ºìÂí
-#define R_CANNON    11 //ºìÅÚ
-#define R_BISHOP    12 //ºìÊ¿
-#define R_ELEPHANT  13 //ºìÏà
-#define R_PAWN      14 //ºì×ä
+#define R_KING      8  //çº¢å°†
+#define R_CAR       9  //çº¢è½¦
+#define R_HORSE     10 //çº¢é©¬
+#define R_CANNON    11 //çº¢ç‚®
+#define R_BISHOP    12 //çº¢å£«
+#define R_ELEPHANT  13 //çº¢ç›¸
+#define R_PAWN      14 //çº¢å’
 #define R_BEGIN     R_KING
 #define R_END       R_PAWN
 
-#define IsBlack(x)  (x >= B_BEGIN && x <= B_END) //ÅÐ¶ÏÒ»¸öÆå×ÓÊÇ²»ÊÇºÚÉ«
+#define IsBlack(x)  (x >= B_BEGIN && x <= B_END) //åˆ¤æ–­ä¸€ä¸ªæ£‹å­æ˜¯ä¸æ˜¯é»‘è‰²
 #define IsRed(x)    ((x >= R_BEGIN) && (x <= R_END))
-//ÅÐ¶ÏÁ½¸öÆå×ÓÊÇ²»ÊÇÍ¬É«
+//åˆ¤æ–­ä¸¤ä¸ªæ£‹å­æ˜¯ä¸æ˜¯åŒè‰²
 #define IsSameSide(x,y) ((IsBlack(x) && IsBlack(y)) || (IsRed(x) && IsRed(y)) )
 //true
-//¶¨ÒåÒ»¸öÆå×ÓÎ»ÖÃµÄ½á¹¹
+//å®šä¹‰ä¸€ä¸ªæ£‹å­ä½ç½®çš„ç»“æž„
 typedef struct chessmanposition
 {
     BYTE x;
     BYTE y;
 }CHESSMANPOS;
 
-//Ò»¸ö×ß·¨µÄ½á¹¹
+//ä¸€ä¸ªèµ°æ³•çš„ç»“æž„
 typedef struct _chessmove
 {
     short       ChessID;

@@ -1,17 +1,17 @@
 #include "CMoveGenerator.h"
 #include "define.h"
 #include "math.h"
-//¹¹Ôìº¯Êı
+//æ„é€ å‡½æ•°
 CMoveGenerator::CMoveGenerator()
 {
 }
-//Îö¹¹º¯Êı
+//ææ„å‡½æ•°
 CMoveGenerator::~CMoveGenerator()
 {
 }
 
-//ÅĞ¶Ï¾ÖÃæpositionÉÏ£¬´ÓFromµ½ToµÄ×ß·¨ÊÇ·ñºÏ·¨
-//Èç¹ûÊÇºÏ·¨×ß·¨£¬·µ»ØTRUE£¬·ñÔò·µ»ØFALSE
+//åˆ¤æ–­å±€é¢positionä¸Šï¼Œä»Fromåˆ°Toçš„èµ°æ³•æ˜¯å¦åˆæ³•
+//å¦‚æœæ˜¯åˆæ³•èµ°æ³•ï¼Œè¿”å›TRUEï¼Œå¦åˆ™è¿”å›FALSE
 bool CMoveGenerator::IsValidMove(BYTE position[10][9],
                                  int nFromX, int nFromY, int nToX, int nToY)
 {
@@ -19,27 +19,27 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
     int i,j;
     if((nFromX == nToX)&&(nFromY == nToY))
     {
-        return false;//Ä¿µÄÓëÔ´ÏàÍ¬£¬·Ç·¨
+        return false;//ç›®çš„ä¸æºç›¸åŒï¼Œéæ³•
     }
     nMoveChessID = position[nFromX][nFromY];
     nTargetID = position[nToX][nToY];
     if(IsSameSide(nMoveChessID, nTargetID))
     {
-        return false;//³Ô×Ô¼ºµÄÆå£¬·Ç·¨
+        return false;//åƒè‡ªå·±çš„æ£‹ï¼Œéæ³•
     }
 
     switch(nMoveChessID)
     {
-    case B_KING://ºÚ½«
-        if(nTargetID == R_KING)//ÅĞ¶ÏÀÏ½«ÊÇ·ñ¼ûÃæ
+    case B_KING://é»‘å°†
+        if(nTargetID == R_KING)//åˆ¤æ–­è€å°†æ˜¯å¦è§é¢
         {
-            if(nFromX != nToX)//ºá×ø±ê²»ÏàµÈ
+            if(nFromX != nToX)//æ¨ªåæ ‡ä¸ç›¸ç­‰
             {
-                return false;  //Á½½«²»ÔÚÍ¬Ò»ÁĞ
+                return false;  //ä¸¤å°†ä¸åœ¨åŒä¸€åˆ—
             }
             for(i = nFromY + 1; i < nToY; i++)
             {
-                if(position[i][nFromY] != NOCHESS)//ÖĞ¼äÃ»ÓĞÆå×Ó
+                if(position[i][nFromY] != NOCHESS)//ä¸­é—´æ²¡æœ‰æ£‹å­
                 {
                     return false;
                 }
@@ -47,26 +47,26 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
         }
         else
         {
-            if((nToX > 5) || (nToX < 3) || (nToY > 2))//Ä¿±êµãÔÚ½«¿òÖ®Íâ
+            if((nToX > 5) || (nToX < 3) || (nToY > 2))//ç›®æ ‡ç‚¹åœ¨å°†æ¡†ä¹‹å¤–
             {
                 return false;
             }
-            if((fabs(nFromX - nToX) + fabs(nFromY - nToY)) > 1)//½«/Ë§×ß³¬¹ıÒ»²½
+            if((fabs(nFromX - nToX) + fabs(nFromY - nToY)) > 1)//å°†/å¸…èµ°è¶…è¿‡ä¸€æ­¥
             {
                 return false;
             }
         }
         break;
-    case R_KING://ºìË§
-        if(nTargetID == B_KING)//ÅĞ¶ÏÀÏ½«ÊÇ·ñ¼ûÃæ
+    case R_KING://çº¢å¸…
+        if(nTargetID == B_KING)//åˆ¤æ–­è€å°†æ˜¯å¦è§é¢
         {
-            if(nFromX != nToX)//ºá×ø±ê²»ÏàµÈ
+            if(nFromX != nToX)//æ¨ªåæ ‡ä¸ç›¸ç­‰
             {
-                return false;//Á½½«²»ÔÚÍ¬Ò»ÁĞ
+                return false;//ä¸¤å°†ä¸åœ¨åŒä¸€åˆ—
             }
             for(i = nFromY - 1; i > nToY; i--)
             {
-                if(position[i][nFromY] != NOCHESS)//Ö®¼äÓĞÆå×Ó
+                if(position[i][nFromY] != NOCHESS)//ä¹‹é—´æœ‰æ£‹å­
                 {
                     return false;
                 }
@@ -74,68 +74,68 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
         }
         else
         {
-            if((nToY > 5) || (nToY < 3) || (nToX < 7))//Ä¿±êµãÔÚ½«¿òÖ®Íâ
+            if((nToY > 5) || (nToY < 3) || (nToX < 7))//ç›®æ ‡ç‚¹åœ¨å°†æ¡†ä¹‹å¤–
             {
                 return false;
             }
-            if(fabs(nFromX - nToX) + fabs(nFromY - nToY) > 1)//½«×ß³¬¹ı1²½
+            if(fabs(nFromX - nToX) + fabs(nFromY - nToY) > 1)//å°†èµ°è¶…è¿‡1æ­¥
             {
                 return false;
             }
         }
         break;
-    case B_BISHOP://ºÚÊ¿
-        if((nToX < 3) || (nToX > 5) || (nToY > 2))//Ä¿±êµãÔÚ½«¿òÍâ
+    case B_BISHOP://é»‘å£«
+        if((nToX < 3) || (nToX > 5) || (nToY > 2))//ç›®æ ‡ç‚¹åœ¨å°†æ¡†å¤–
         {
             return false;
         }
-        if((fabs(nToX - nFromX) != 1) || (fabs(nToY - nFromY) != 1))//Ê¿×ßĞ±Ïß
-        {
-            return false;
-        }
-        break;
-    case R_BISHOP://ºìÊ¿
-        if((nToX < 3) || (nToX > 5) || (nToY < 7))//Ä¿±êµãÔÚ½«¿òÍâ
-        {
-            return false;
-        }
-        if((fabs(nToX - nFromX) != 1) || (fabs(nToY - nFromY) != 1))//Ê¿×ßĞ±Ïß
+        if((fabs(nToX - nFromX) != 1) || (fabs(nToY - nFromY) != 1))//å£«èµ°æ–œçº¿
         {
             return false;
         }
         break;
-    case B_ELEPHANT://ºÚÏó
-        if(nToY > 4)//Ïó²»ÄÜ¹ıºÓ
+    case R_BISHOP://çº¢å£«
+        if((nToX < 3) || (nToX > 5) || (nToY < 7))//ç›®æ ‡ç‚¹åœ¨å°†æ¡†å¤–
         {
             return false;
         }
-        if((fabs(nToX - nFromX) != 2) || (fabs(nToY - nFromY) != 2))//Ïó×ßÌï×Ö
-        {
-            return false;
-        }
-        if(position[(nFromX - nToX)/2][(nFromY - nToY)/2] != NOCHESS)//ÏóÑÛ±»¶Â
+        if((fabs(nToX - nFromX) != 1) || (fabs(nToY - nFromY) != 1))//å£«èµ°æ–œçº¿
         {
             return false;
         }
         break;
-    case R_ELEPHANT://ºìÏà
-        if(nToY < 5)//Ïà²»ÄÜ¹ıºÓ
+    case B_ELEPHANT://é»‘è±¡
+        if(nToY > 4)//è±¡ä¸èƒ½è¿‡æ²³
         {
             return false;
         }
-        if((fabs(nToX - nFromX) != 2) || (fabs(nToY - nFromY) != 2))//Ïà×ßÌï×Ö
+        if((fabs(nToX - nFromX) != 2) || (fabs(nToY - nFromY) != 2))//è±¡èµ°ç”°å­—
         {
             return false;
         }
-        if(position[(nFromX - nToX)/2][(nFromY - nToY)/2] != NOCHESS)//ÏàÑÛ±»¶Â
+        if(position[(nFromX - nToX)/2][(nFromY - nToY)/2] != NOCHESS)//è±¡çœ¼è¢«å µ
         {
             return false;
         }
         break;
-    case B_HORSE://ºÚÂí
+    case R_ELEPHANT://çº¢ç›¸
+        if(nToY < 5)//ç›¸ä¸èƒ½è¿‡æ²³
+        {
+            return false;
+        }
+        if((fabs(nToX - nFromX) != 2) || (fabs(nToY - nFromY) != 2))//ç›¸èµ°ç”°å­—
+        {
+            return false;
+        }
+        if(position[(nFromX - nToX)/2][(nFromY - nToY)/2] != NOCHESS)//ç›¸çœ¼è¢«å µ
+        {
+            return false;
+        }
+        break;
+    case B_HORSE://é»‘é©¬
 
-    case R_HORSE://ºìÂí
-        //Âí×ßÈÕ×Ö
+    case R_HORSE://çº¢é©¬
+        //é©¬èµ°æ—¥å­—
         if(!( ((fabs(nFromX - nToX)==2) && (fabs(nFromY - nToY)==1)) ||
               ((fabs(nFromX - nToX)==1) && (fabs(nFromY - nToY)==2))) )
         {
@@ -161,7 +161,7 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
             i = nFromX;
             j = nFromY + 1;
         }
-        if(position[i][j] != NOCHESS)//°èÂíÍÈ
+        if(position[i][j] != NOCHESS)//æ‹Œé©¬è…¿
         {
             return false;
         }
@@ -169,24 +169,24 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
     case B_CAR:
 
     case R_CAR:
-        if((nFromX != nToX) && (nFromY != nToY))//³µ×ßÖ±Ïß
+        if((nFromX != nToX) && (nFromY != nToY))//è½¦èµ°ç›´çº¿
         {
             return false;
         }
-        if(nFromX == nToX)//Êú×Å×ß
+        if(nFromX == nToX)//ç«–ç€èµ°
         {
-            if(nFromY > nToY)//ÍùÉÏ×ß
+            if(nFromY > nToY)//å¾€ä¸Šèµ°
             {
                 for(i = nFromY; i < nToY; i--)
                 {
-                    //Ä¿±êµãºÍÔ­µãÖ®¼äÓĞÆå×Ó
+                    //ç›®æ ‡ç‚¹å’ŒåŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                     if(position[nFromX][i] != NOCHESS)
                     {
                         return false;
                     }
                 }
             }
-            else//ÍùÏÂ×ß
+            else//å¾€ä¸‹èµ°
             {
                 for(i = nFromY; i > nToY; i++)
                 {
@@ -197,24 +197,24 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
                 }
             }
         }
-        else //ºá×Å×ß
+        else //æ¨ªç€èµ°
         {
-            if(nFromX > nToX)//Íù×ó×ß
+            if(nFromX > nToX)//å¾€å·¦èµ°
             {
                 for(i = nFromX; i < nToX; i--)
                 {
-                    //Ä¿±êµãÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                    //ç›®æ ‡ç‚¹ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                     if(position[i][nFromY] != NOCHESS)
                     {
                         return false;
                     }
                 }
             }
-            else//ÍùÓÒ×ß
+            else//å¾€å³èµ°
             {
                 for(i = nFromX; i > nToX; i++)
                 {
-                    //Ä¿±êÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                    //ç›®æ ‡ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                     if(position[i][nFromY] != NOCHESS)
                     {
                         return false;
@@ -227,27 +227,27 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
     case B_CANNON:
 
     case R_CANNON:
-        if((nFromX != nToX) && (nFromY != nToY))//ÅÚ×ßÖ±Ïß
+        if((nFromX != nToX) && (nFromY != nToY))//ç‚®èµ°ç›´çº¿
         {
             return false;
         }
-        //ÅÚ²»³Ô×ÓÊ±  ºÍ³µÊµÏÖ·½·¨Ò»ÖÂ£¬Â·¾¶ÉÏ²»ÄÜÓĞÆå×Ó
+        //ç‚®ä¸åƒå­æ—¶  å’Œè½¦å®ç°æ–¹æ³•ä¸€è‡´ï¼Œè·¯å¾„ä¸Šä¸èƒ½æœ‰æ£‹å­
         if(position[nToX][nToY] == NOCHESS)
         {
-            if(nFromX == nToX)//Êú×Å×ß
+            if(nFromX == nToX)//ç«–ç€èµ°
             {
-                if(nFromY > nToY)//ÍùÉÏ×ß
+                if(nFromY > nToY)//å¾€ä¸Šèµ°
                 {
                     for(i = nFromY; i < nToY; i--)
                     {
-                        //Ä¿±êµãºÍÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ç‚¹å’ŒåŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[nFromX][i] != NOCHESS)
                         {
                             return false;
                         }
                     }
                 }
-                else//ÍùÏÂ×ß
+                else//å¾€ä¸‹èµ°
                 {
                     for(i = nFromY; i > nToY; i++)
                     {
@@ -258,24 +258,24 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
                     }
                 }
             }
-            else //ºá×Å×ß
+            else //æ¨ªç€èµ°
             {
-                if(nFromX > nToX)//Íù×ó×ß
+                if(nFromX > nToX)//å¾€å·¦èµ°
                 {
                     for(i = nFromX; i < nToX; i--)
                     {
-                        //Ä¿±êµãÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ç‚¹ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[i][nFromY] != NOCHESS)
                         {
                             return false;
                         }
                     }
                 }
-                else//ÍùÓÒ×ß
+                else//å¾€å³èµ°
                 {
                     for(i = nFromX; i > nToX; i++)
                     {
-                        //Ä¿±êÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[i][nFromY] != NOCHESS)
                         {
                             return false;
@@ -284,29 +284,29 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
                 }
             }
         }
-        //ÅÚ³Ô×ÓÊ±
+        //ç‚®åƒå­æ—¶
         else
         {
             int count = 0;
-            if(nFromX == nToX)//Êú×Å×ß
+            if(nFromX == nToX)//ç«–ç€èµ°
             {
-                if(nFromY > nToY)//ÍùÉÏ×ß
+                if(nFromY > nToY)//å¾€ä¸Šèµ°
                 {
                     for(i = nFromY; i < nToY; i--)
                     {
-                        //Ä¿±êµãºÍÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ç‚¹å’ŒåŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[nFromX][i] != NOCHESS)
                         {
                             count++;
                         }
                     }
-                    //ÅÚºÍÄ¿±êÆå×ÓÖ®¼äµÄÆå×Ó¸öÊı²»ÊÇ1
+                    //ç‚®å’Œç›®æ ‡æ£‹å­ä¹‹é—´çš„æ£‹å­ä¸ªæ•°ä¸æ˜¯1
                     if(count != 1)
                     {
                         return false;
                     }
                 }
-                else//ÍùÏÂ×ß
+                else//å¾€ä¸‹èµ°
                 {
                     for(i = nFromY; i > nToY; i++)
                     {
@@ -315,41 +315,41 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
                             count++;
                         }
                     }
-                    //ÅÚºÍÄ¿±êÆå×ÓÖ®¼äµÄÆå×Ó¸öÊı²»ÊÇ1
+                    //ç‚®å’Œç›®æ ‡æ£‹å­ä¹‹é—´çš„æ£‹å­ä¸ªæ•°ä¸æ˜¯1
                     if(count != 1)
                     {
                         return false;
                     }
                 }
             }
-            else //ºá×Å×ß
+            else //æ¨ªç€èµ°
             {
-                if(nFromX > nToX)//Íù×ó×ß
+                if(nFromX > nToX)//å¾€å·¦èµ°
                 {
                     for(i = nFromX; i < nToX; i--)
                     {
-                        //Ä¿±êµãÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ç‚¹ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[i][nFromY] != NOCHESS)
                         {
                             count++;
                         }
-                        //ÅÚºÍÄ¿±êÆå×ÓÖ®¼äµÄÆå×Ó¸öÊı²»ÊÇ1
+                        //ç‚®å’Œç›®æ ‡æ£‹å­ä¹‹é—´çš„æ£‹å­ä¸ªæ•°ä¸æ˜¯1
                         if(count != 1)
                         {
                             return false;
                         }
                     }
                 }
-                else//ÍùÓÒ×ß
+                else//å¾€å³èµ°
                 {
                     for(i = nFromX; i > nToX; i++)
                     {
-                        //Ä¿±êÓëÔ­µãÖ®¼äÓĞÆå×Ó
+                        //ç›®æ ‡ä¸åŸç‚¹ä¹‹é—´æœ‰æ£‹å­
                         if(position[i][nFromY] != NOCHESS)
                         {
                             count++;
                         }
-                        //ÅÚºÍÄ¿±êÆå×ÓÖ®¼äµÄÆå×Ó¸öÊı²»ÊÇ1
+                        //ç‚®å’Œç›®æ ‡æ£‹å­ä¹‹é—´çš„æ£‹å­ä¸ªæ•°ä¸æ˜¯1
                         if(count != 1)
                         {
                             return false;
@@ -360,35 +360,35 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
         }
         break;
 
-    case B_PAWN://ºÚ±ø
-        //Ö»ÄÜ×ßÒ»²½
+    case B_PAWN://é»‘å…µ
+        //åªèƒ½èµ°ä¸€æ­¥
         if((fabs(nToX - nFromX) + fabs(nToY - nFromY)) > 1)
         {
             return false;
         }
-        //¹ıºÓÇ°²»ÄÜºá×ß
+        //è¿‡æ²³å‰ä¸èƒ½æ¨ªèµ°
         if((nFromY < 5) && (nFromX != nToX))
         {
             return false;
         }
-        //Ö»ÄÜÇ°½ø
+        //åªèƒ½å‰è¿›
         if(nToY < nFromY)
         {
             return false;
         }
         break;
-    case R_PAWN://ºì×ä
-        //Ö»ÄÜ×ßÒ»²½
+    case R_PAWN://çº¢å’
+        //åªèƒ½èµ°ä¸€æ­¥
         if((fabs(nToX - nFromX) + fabs(nToY - nFromY)) > 1)
         {
             return false;
         }
-        //¹ıºÓÇ°²»ÄÜºá×ß
+        //è¿‡æ²³å‰ä¸èƒ½æ¨ªèµ°
         if((nFromY > 4) && (nFromX != nToX))
         {
             return false;
         }
-        //Ö»ÄÜÇ°½ø
+        //åªèƒ½å‰è¿›
         if(nToY > nFromY)
         {
             return false;
@@ -400,12 +400,12 @@ bool CMoveGenerator::IsValidMove(BYTE position[10][9],
     }
     return true;
 }
-//ÔÚm_MoveListÖĞ²åÈëÒ»¸ö×ß·¨
-//nFromXÊÇÆğÊ¼Î»ÖÃºá×ø±ê
-//nFromYÊÇÆğÊ¼Î»ÖÃ×İ×ø±ê
-//nToXÊÇÄ¿±êÎ»ÖÃºá×ø±ê
-//nToYÊÇÄ¿±êÎ»ÖÃ×İ×ø±ê
-//nPlyÊÇ´Ë×ß·¨ËùÔÚµÄ²ã´Î
+//åœ¨m_MoveListä¸­æ’å…¥ä¸€ä¸ªèµ°æ³•
+//nFromXæ˜¯èµ·å§‹ä½ç½®æ¨ªåæ ‡
+//nFromYæ˜¯èµ·å§‹ä½ç½®çºµåæ ‡
+//nToXæ˜¯ç›®æ ‡ä½ç½®æ¨ªåæ ‡
+//nToYæ˜¯ç›®æ ‡ä½ç½®çºµåæ ‡
+//nPlyæ˜¯æ­¤èµ°æ³•æ‰€åœ¨çš„å±‚æ¬¡
 int CMoveGenerator::AddMove(int nFromX, int nFromY, int nToX, int nToY, int nPly)
 {
     m_MoveList[nPly][m_nMoveCount].From.x = nFromX;
@@ -415,12 +415,12 @@ int CMoveGenerator::AddMove(int nFromX, int nFromY, int nToX, int nToY, int nPly
     m_nMoveCount++;
     return m_nMoveCount;
 }
-//ÒÔÉÏÊÇAddMove
+//ä»¥ä¸Šæ˜¯AddMove
 
-//ÓÃÒÔ²úÉú¾ÖÃæpositionÖĞËùÓĞ¿ÉÄÜµÄ×ß·¨
-//positionÊÇ°üº¬ËùÓĞÆå×ÓÎ»ÖÃĞÅÏ¢µÄ¶şÎ¬Êı×é
-//nPlyÖ¸Ã÷µ±Ç°ËÑË÷µÄ²ãÊı£¬Ã¿²ã½«×ß·¨´æÔÚ²»Í¬µÄÎ»ÖÃ£¬ÒÔÃâ¸²¸Ç
-//nSideÖ¸Ã÷²úÉúÄÄÒ»·½ÃæµÄ×ß·¨£¬trueÎªºì·½£¬falseÊÇºÚ·½
+//ç”¨ä»¥äº§ç”Ÿå±€é¢positionä¸­æ‰€æœ‰å¯èƒ½çš„èµ°æ³•
+//positionæ˜¯åŒ…å«æ‰€æœ‰æ£‹å­ä½ç½®ä¿¡æ¯çš„äºŒç»´æ•°ç»„
+//nPlyæŒ‡æ˜å½“å‰æœç´¢çš„å±‚æ•°ï¼Œæ¯å±‚å°†èµ°æ³•å­˜åœ¨ä¸åŒçš„ä½ç½®ï¼Œä»¥å…è¦†ç›–
+//nSideæŒ‡æ˜äº§ç”Ÿå“ªä¸€æ–¹é¢çš„èµ°æ³•ï¼Œtrueä¸ºçº¢æ–¹ï¼Œfalseæ˜¯é»‘æ–¹
 int CMoveGenerator::CreatepossibleMove(unsigned char position[10][9], int nPly, int nSide)
 {
     int i,j;
@@ -434,34 +434,34 @@ int CMoveGenerator::CreatepossibleMove(unsigned char position[10][9], int nPly, 
                 nChessID = position[i][j];
                 if(!nSide && IsRed(nChessID))
                 {
-                    continue;//Òª²úÉúºÚÆåµÄ×ß·¨£¬Ìø¹ıºìÆå
+                    continue;//è¦äº§ç”Ÿé»‘æ£‹çš„èµ°æ³•ï¼Œè·³è¿‡çº¢æ£‹
                 }
                 if(nSide && IsBlack(nChessID))
                 {
-                    continue;//Òª²úÉúºìÆåµÄ×ß·¨£¬Ìø¹ıºÚÆå
+                    continue;//è¦äº§ç”Ÿçº¢æ£‹çš„èµ°æ³•ï¼Œè·³è¿‡é»‘æ£‹
                 }
                 switch(nChessID)
                 {
-                case B_KING://ºÚ½«
-                case R_KING://ºìË§
+                case B_KING://é»‘å°†
+                case R_KING://çº¢å¸…
                     Gen_KingMove(position, i, j, nPly);
                     break;
 
-                case B_BISHOP://ºÚÊ¿
+                case B_BISHOP://é»‘å£«
                     Gen_BBishopMove(position, i, j, nPly);
                     break;
 
-                case R_BISHOP://ºìÊ¿
+                case R_BISHOP://çº¢å£«
                     Gen_RBishopMove(position, i, j, nPly);
                     break;
 
-                case B_ELEPHANT://ºÚÏó
-                case R_ELEPHANT://ºìÏà
+                case B_ELEPHANT://é»‘è±¡
+                case R_ELEPHANT://çº¢ç›¸
                     Gen_ElephantMove(position, i, j, nPly);
                     break;
 
-                case B_HORSE://ºÚÂí
-                case R_HORSE://ºìÂí
+                case B_HORSE://é»‘é©¬
+                case R_HORSE://çº¢é©¬
                     Gen_HorseMove(position, i, j, nPly);
                     break;
 
@@ -470,16 +470,16 @@ int CMoveGenerator::CreatepossibleMove(unsigned char position[10][9], int nPly, 
                     Gen_CarMove(position, i, j, nPly);
                     break;
 
-                case B_CANNON://ºÚÅÚ
-                case R_CANNON://ºìÅÚ
+                case B_CANNON://é»‘ç‚®
+                case R_CANNON://çº¢ç‚®
                     Gen_CannonMove(position, i, j, nPly);
                     break;
 
-                case B_PAWN://ºÚ±ø
+                case B_PAWN://é»‘å…µ
                     Gen_BPawnMove(position, i, j, nPly);
                     break;
 
-                case R_PAWN://ºì×ä
+                case R_PAWN://çº¢å’
                     Gen_RPawnMove(position, i, j, nPly);
                     break;
 
@@ -492,9 +492,9 @@ int CMoveGenerator::CreatepossibleMove(unsigned char position[10][9], int nPly, 
     return 0;
 }
 
-//²úÉúË§µÄºÏ·¨×ß²½
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿå¸…çš„åˆæ³•èµ°æ­¥
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_KingMove(unsigned char position[10][9], int i, int j, int nPly)
 {
     int x, y;
@@ -502,24 +502,24 @@ void CMoveGenerator::Gen_KingMove(unsigned char position[10][9], int i, int j, i
     {
         for(y = 0; y < 3; y++)
         {
-            if(IsValidMove(position, i, j, x, y))//ÅĞ¶Ï×ß²½ÊÇ·ñºÏ·¨
+            if(IsValidMove(position, i, j, x, y))//åˆ¤æ–­èµ°æ­¥æ˜¯å¦åˆæ³•
             {
-                AddMove(i, j, x, y, nPly);//½«×ß·¨²åÈëList
+                AddMove(i, j, x, y, nPly);//å°†èµ°æ³•æ’å…¥List
             }
         }
         for(y = 7; y < 10; y++)
         {
             if(IsValidMove(position, i, j, x, y))
             {
-                AddMove(i, j, x, y, nPly);//½«×ß·¨²åÈëList
+                AddMove(i, j, x, y, nPly);//å°†èµ°æ³•æ’å…¥List
             }
         }
     }
 
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºìÊËµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„çº¢ä»•çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_RBishopMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y;
@@ -534,9 +534,9 @@ void CMoveGenerator::Gen_RBishopMove(BYTE position[10][9], int i, int j, int nPl
         }
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºÚÊ¿µÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é»‘å£«çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_BBishopMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y;
@@ -551,34 +551,34 @@ void CMoveGenerator::Gen_BBishopMove(BYTE position[10][9], int i, int j, int nPl
         }
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÏà/ÏóµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„ç›¸/è±¡çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_ElephantMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y;
-    //²åÈëÏòÓÒÏÂ·½µÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å³ä¸‹æ–¹çš„æœ‰æ•ˆèµ°æ³•
     x = i + 2;
     y = j + 2;
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y < 10))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏòÓÒÉÏ·½µÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å³ä¸Šæ–¹çš„æœ‰æ•ˆèµ°æ³•
     x = i + 2;
     y = j - 2;
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏò×óÉÏ·½µÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å·¦ä¸Šæ–¹çš„æœ‰æ•ˆèµ°æ³•
     x = i - 2;
     y = j - 2;
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏò×óÏÂ·½µÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å·¦ä¸‹æ–¹çš„æœ‰æ•ˆèµ°æ³•
     x = i - 2;
     y = j + 2;
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y < 10))
@@ -586,359 +586,359 @@ void CMoveGenerator::Gen_ElephantMove(BYTE position[10][9], int i, int j, int nP
         AddMove(i, j, x, y, nPly);
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÂíµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é©¬çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_HorseMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y;
-    //²åÈëÏòÓÒÏÂ·½µÄÓĞĞ§×ß·¨
-    x = i + 1;//ÓÒÒ»
-    y = j + 2;//ÏÂ¶ş
+    //æ’å…¥å‘å³ä¸‹æ–¹çš„æœ‰æ•ˆèµ°æ³•
+    x = i + 1;//å³ä¸€
+    y = j + 2;//ä¸‹äºŒ
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y < 10))
     {
         AddMove(i, j, x, y, nPly);
     }
-    x = i + 2;//ÓÒ¶ş
-    y = j + 1;//ÏÂÒ»
+    x = i + 2;//å³äºŒ
+    y = j + 1;//ä¸‹ä¸€
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y < 10))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏòÓÒÉÏ·½µÄÓĞĞ§×ß·¨
-    x = i + 1;//ÓÒÒ»
-    y = j - 2;//ÉÏ¶ş
+    //æ’å…¥å‘å³ä¸Šæ–¹çš„æœ‰æ•ˆèµ°æ³•
+    x = i + 1;//å³ä¸€
+    y = j - 2;//ä¸ŠäºŒ
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    x = i + 2;//ÓÒ¶ş
-    y = j - 1;//ÉÏÒ»
+    x = i + 2;//å³äºŒ
+    y = j - 1;//ä¸Šä¸€
     if(IsValidMove(position, i, j, x, y) && (x < 9) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏò×óÉÏ·½µÄÓĞĞ§×ß·¨
-    x = i - 1;//×óÒ»
-    y = j - 2;//ÉÏ¶ş
+    //æ’å…¥å‘å·¦ä¸Šæ–¹çš„æœ‰æ•ˆèµ°æ³•
+    x = i - 1;//å·¦ä¸€
+    y = j - 2;//ä¸ŠäºŒ
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    x = i - 2;//×ó¶ş
-    y = j - 1;//ÉÏÒ»
+    x = i - 2;//å·¦äºŒ
+    y = j - 1;//ä¸Šä¸€
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y >= 0))
     {
         AddMove(i, j, x, y, nPly);
     }
-    //²åÈëÏò×óÏÂ·½µÄÓĞĞ§×ß·¨
-    x = i - 1;//×óÒ»
-    y = j + 2;//ÏÂ¶ş
+    //æ’å…¥å‘å·¦ä¸‹æ–¹çš„æœ‰æ•ˆèµ°æ³•
+    x = i - 1;//å·¦ä¸€
+    y = j + 2;//ä¸‹äºŒ
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y < 10))
     {
         AddMove(i, j, x, y, nPly);
     }
-    x = i - 2;//×ó¶ş
-    y = j + 1;//ÏÂÒ»
+    x = i - 2;//å·¦äºŒ
+    y = j + 1;//ä¸‹ä¸€
     if(IsValidMove(position, i, j, x, y) && (x >= 0) && (y < 10))
     {
         AddMove(i, j, x, y, nPly);
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÜ‡µÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„è»Šçš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_CarMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y,nChessID;
     nChessID = position[i][j];
-    //²åÈëÏòÓÒµÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å³çš„æœ‰æ•ˆèµ°æ³•
     x = i + 1;
     y = j;
     while(x < 9)
     {
-        if(position[x][y] != NOCHESS)//´ÓÆğÊ¼Î»ÖÃµ½ÆåÅÌ±ß½çÓĞÆå×Ó
+        if(position[x][y] != NOCHESS)//ä»èµ·å§‹ä½ç½®åˆ°æ£‹ç›˜è¾¹ç•Œæœ‰æ£‹å­
         {
-            if(IsSameSide(nChessID, position[x][y]))//ÅĞ¶Ï¸ÃÆå×ÓÊÇ·ñºÍÔ´Æå×ÓÍ¬É«
+            if(IsSameSide(nChessID, position[x][y]))//åˆ¤æ–­è¯¥æ£‹å­æ˜¯å¦å’Œæºæ£‹å­åŒè‰²
             {
-                break;//Í¬É«Ö±½ÓÌø³öÑ­»·
+                break;//åŒè‰²ç›´æ¥è·³å‡ºå¾ªç¯
             }
             else
             {
-                //²»Í¬É«½«µ±Ç°Î»ÖÃ¼ÓÈë×ß·¨,È»ºóÍË³öÑ­»·
+                //ä¸åŒè‰²å°†å½“å‰ä½ç½®åŠ å…¥èµ°æ³•,ç„¶åé€€å‡ºå¾ªç¯
                 AddMove(i, j, x, y, nPly);
                 break;
             }
         }
         else
         {
-            //ÎŞÆå×ÓÖ±½Ó¼ÓÈë×ß·¨
+            //æ— æ£‹å­ç›´æ¥åŠ å…¥èµ°æ³•
             AddMove(i, j, x, y, nPly);
         }
         x++;
     }
-    //²åÈëÏò×óµÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘å·¦çš„æœ‰æ•ˆèµ°æ³•
     x = i - 1;
     y = j;
     while(x >= 0)
     {
-        if(position[x][y] != NOCHESS)//´ÓÆğÊ¼Î»ÖÃµ½ÆåÅÌ±ß½çÓĞÆå×Ó
+        if(position[x][y] != NOCHESS)//ä»èµ·å§‹ä½ç½®åˆ°æ£‹ç›˜è¾¹ç•Œæœ‰æ£‹å­
         {
-            if(IsSameSide(nChessID, position[x][y]))//ÅĞ¶Ï¸ÃÆå×ÓÊÇ·ñºÍÔ´Æå×ÓÍ¬É«
+            if(IsSameSide(nChessID, position[x][y]))//åˆ¤æ–­è¯¥æ£‹å­æ˜¯å¦å’Œæºæ£‹å­åŒè‰²
             {
-                break;//Í¬É«Ö±½ÓÌø³öÑ­»·
+                break;//åŒè‰²ç›´æ¥è·³å‡ºå¾ªç¯
             }
             else
             {
-                //²»Í¬É«½«µ±Ç°Î»ÖÃ¼ÓÈë×ß·¨,È»ºóÍË³öÑ­»·
+                //ä¸åŒè‰²å°†å½“å‰ä½ç½®åŠ å…¥èµ°æ³•,ç„¶åé€€å‡ºå¾ªç¯
                 AddMove(i, j, x, y, nPly);
                 break;
             }
         }
         else
         {
-            //ÎŞÆå×ÓÖ±½Ó¼ÓÈë×ß·¨
+            //æ— æ£‹å­ç›´æ¥åŠ å…¥èµ°æ³•
             AddMove(i, j, x, y, nPly);
         }
         x--;
     }
-    //²åÈëÏòÉÏµÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘ä¸Šçš„æœ‰æ•ˆèµ°æ³•
     x = i;
     y = j - 1;
     while(y >= 0)
     {
-        if(position[x][y] != NOCHESS)//´ÓÆğÊ¼Î»ÖÃµ½ÆåÅÌ±ß½çÓĞÆå×Ó
+        if(position[x][y] != NOCHESS)//ä»èµ·å§‹ä½ç½®åˆ°æ£‹ç›˜è¾¹ç•Œæœ‰æ£‹å­
         {
-            if(IsSameSide(nChessID, position[x][y]))//ÅĞ¶Ï¸ÃÆå×ÓÊÇ·ñºÍÔ´Æå×ÓÍ¬É«
+            if(IsSameSide(nChessID, position[x][y]))//åˆ¤æ–­è¯¥æ£‹å­æ˜¯å¦å’Œæºæ£‹å­åŒè‰²
             {
-                break;//Í¬É«Ö±½ÓÌø³öÑ­»·
+                break;//åŒè‰²ç›´æ¥è·³å‡ºå¾ªç¯
             }
             else
             {
-                //²»Í¬É«½«µ±Ç°Î»ÖÃ¼ÓÈë×ß·¨,È»ºóÍË³öÑ­»·
+                //ä¸åŒè‰²å°†å½“å‰ä½ç½®åŠ å…¥èµ°æ³•,ç„¶åé€€å‡ºå¾ªç¯
                 AddMove(i, j, x, y, nPly);
                 break;
             }
         }
         else
         {
-            //ÎŞÆå×ÓÖ±½Ó¼ÓÈë×ß·¨
+            //æ— æ£‹å­ç›´æ¥åŠ å…¥èµ°æ³•
             AddMove(i, j, x, y, nPly);
         }
         y--;
     }
-    //²åÈëÏòÏÂµÄÓĞĞ§×ß·¨
+    //æ’å…¥å‘ä¸‹çš„æœ‰æ•ˆèµ°æ³•
     x = i;
     y = j + 1;
     while(y < 10)
     {
-        if(position[x][y] != NOCHESS)//´ÓÆğÊ¼Î»ÖÃµ½ÆåÅÌ±ß½çÓĞÆå×Ó
+        if(position[x][y] != NOCHESS)//ä»èµ·å§‹ä½ç½®åˆ°æ£‹ç›˜è¾¹ç•Œæœ‰æ£‹å­
         {
-            if(IsSameSide(nChessID, position[x][y]))//ÅĞ¶Ï¸ÃÆå×ÓÊÇ·ñºÍÔ´Æå×ÓÍ¬É«
+            if(IsSameSide(nChessID, position[x][y]))//åˆ¤æ–­è¯¥æ£‹å­æ˜¯å¦å’Œæºæ£‹å­åŒè‰²
             {
-                break;//Í¬É«Ö±½ÓÌø³öÑ­»·
+                break;//åŒè‰²ç›´æ¥è·³å‡ºå¾ªç¯
             }
             else
             {
-                //²»Í¬É«½«µ±Ç°Î»ÖÃ¼ÓÈë×ß·¨,È»ºóÍË³öÑ­»·
+                //ä¸åŒè‰²å°†å½“å‰ä½ç½®åŠ å…¥èµ°æ³•,ç„¶åé€€å‡ºå¾ªç¯
                 AddMove(i, j, x, y, nPly);
                 break;
             }
         }
         else
         {
-            //ÎŞÆå×ÓÖ±½Ó¼ÓÈë×ß·¨
+            //æ— æ£‹å­ç›´æ¥åŠ å…¥èµ°æ³•
             AddMove(i, j, x, y, nPly);
         }
         y++;
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºì×äµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„çº¢å’çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_RPawnMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y, nChessID;
     nChessID = position[i][j];
     x = i;
     y = j - 1;
-    if(i > 4)//Ã»¹ıºÓ
+    if(i > 4)//æ²¡è¿‡æ²³
     {
-        if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+        if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
         {
             AddMove(i, j, x, y, nPly);
         }
 
     }
-    else//ÒÑ¹ıºÓ
+    else//å·²è¿‡æ²³
     {
-        //²åÈëÏòÉÏ·½×ß·¨
+        //æ’å…¥å‘ä¸Šæ–¹èµ°æ³•
         x = i;
         y = j - 1;
-        if(y >= 0)//Î»ÖÃÓĞĞ§
+        if(y >= 0)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
 
-        //²åÈëÏò×ó×ß·¨
+        //æ’å…¥å‘å·¦èµ°æ³•
         x = i - 1;
         y = j;
-        if(x >= 0)//Î»ÖÃÓĞĞ§
+        if(x >= 0)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
 
-        //²åÈëÏòÓÒ×ß·¨
+        //æ’å…¥å‘å³èµ°æ³•
         x = i + 1;
         y = j;
-        if(x < 9)//Î»ÖÃÓĞĞ§
+        if(x < 9)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄºÚ±øµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„é»‘å…µçš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_BPawnMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y, nChessID;
     nChessID = position[i][j];
     x = i;
     y = j + 1;
-    if(i < 5)//Ã»¹ıºÓ
+    if(i < 5)//æ²¡è¿‡æ²³
     {
-        if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+        if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
         {
             AddMove(i, j, x, y, nPly);
         }
 
     }
-    else//ÒÑ¹ıºÓ
+    else//å·²è¿‡æ²³
     {
-        //²åÈëÏòÉÏ·½×ß·¨
+        //æ’å…¥å‘ä¸Šæ–¹èµ°æ³•
         x = i;
         y = j + 1;
-        if(y < 10)//Î»ÖÃÓĞĞ§
+        if(y < 10)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
 
-        //²åÈëÏò×ó×ß·¨
+        //æ’å…¥å‘å·¦èµ°æ³•
         x = i - 1;
         y = j;
-        if(x >= 0)//Î»ÖÃÓĞĞ§
+        if(x >= 0)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
 
-        //²åÈëÏòÓÒ×ß·¨
+        //æ’å…¥å‘å³èµ°æ³•
         x = i + 1;
         y = j;
-        if(x < 9)//Î»ÖÃÓĞĞ§
+        if(x < 9)//ä½ç½®æœ‰æ•ˆ
         {
             if(position[x][y] != NOCHESS)
             {
-                //ÓĞÕÏ°­
-                if(!IsSameSide(nChessID, position[x][y]))//Ç°·½²»ÊÇÍ¬ÑÕÉ«
+                //æœ‰éšœç¢
+                if(!IsSameSide(nChessID, position[x][y]))//å‰æ–¹ä¸æ˜¯åŒé¢œè‰²
                 {
                     AddMove(i, j, x, y, nPly);
                 }
             }
             else
             {
-                //ÎŞÕÏ°­
+                //æ— éšœç¢
                 AddMove(i, j, x, y, nPly);
             }
         }
     }
 }
-//²úÉú¸ø¶¨ÆåÅÌÉÏµÄ¸ø¶¨Î»ÖÃÉÏµÄÅÚµÄ×ß·¨
-//i,jÊÇÆå×ÓµÄÎ»ÖÃ
-//nPly±íÊ¾²åÈëµ½ListµÄµÚ¼¸²ã
+//äº§ç”Ÿç»™å®šæ£‹ç›˜ä¸Šçš„ç»™å®šä½ç½®ä¸Šçš„ç‚®çš„èµ°æ³•
+//i,jæ˜¯æ£‹å­çš„ä½ç½®
+//nPlyè¡¨ç¤ºæ’å…¥åˆ°Listçš„ç¬¬å‡ å±‚
 void CMoveGenerator::Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly)
 {
     int x, y, nChessID;
     nChessID = position[i][j];
     bool flag = false;
-    //²åÈëÏòÓÒ×ß·¨
+    //æ’å…¥å‘å³èµ°æ³•
     x = i + 1;
     y = j;
     while(x < 9)
     {
         if(flag)
         {
-            //ÒÑ¾­¼ì²âµ½µÚÒ»Ã¶Æå×Ó,´ËÊ±Ó¦¸Ã¼ÌĞøÏòÏÂ¼ìË÷
-            if(position[x][y] != NOCHESS)//¼ì²âµ½µÚ¶şÃ¶Æå×Ó
+            //å·²ç»æ£€æµ‹åˆ°ç¬¬ä¸€æšæ£‹å­,æ­¤æ—¶åº”è¯¥ç»§ç»­å‘ä¸‹æ£€ç´¢
+            if(position[x][y] != NOCHESS)//æ£€æµ‹åˆ°ç¬¬äºŒæšæ£‹å­
             {
                 if(IsSameSide(nChessID, position[x][y]))
                 {
-                    //ÓëÅÚÑÕÉ«ÏàÍ¬
+                    //ä¸ç‚®é¢œè‰²ç›¸åŒ
                     break;
                 }
                 else
                 {
-                    //ÓëÅÚÑÕÉ«²»Í¬
+                    //ä¸ç‚®é¢œè‰²ä¸åŒ
                     AddMove(i, j, x, y, nPly);
                     break;
                 }
@@ -946,35 +946,35 @@ void CMoveGenerator::Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly
         }
         else
         {
-            if(position[x][y] == NOCHESS)//Ã»Æå×Ó
+            if(position[x][y] == NOCHESS)//æ²¡æ£‹å­
             {
                 AddMove(i, j, x, y, nPly);
             }
-            else//ÓĞÆå×Ó
+            else//æœ‰æ£‹å­
             {
-                flag = true;//¼ì²âµ½µÚÒ»¸öÆå×Ó
+                flag = true;//æ£€æµ‹åˆ°ç¬¬ä¸€ä¸ªæ£‹å­
             }
         }
         x++;
     }
-    //²åÈëÏò×ó×ß·¨
+    //æ’å…¥å‘å·¦èµ°æ³•
     x = i - 1;
     y = j;
     while(x >= 0)
     {
         if(flag)
         {
-            //ÒÑ¾­¼ì²âµ½µÚÒ»Ã¶Æå×Ó,´ËÊ±Ó¦¸Ã¼ÌĞøÏòÏÂ¼ìË÷
-            if(position[x][y] != NOCHESS)//¼ì²âµ½µÚ¶şÃ¶Æå×Ó
+            //å·²ç»æ£€æµ‹åˆ°ç¬¬ä¸€æšæ£‹å­,æ­¤æ—¶åº”è¯¥ç»§ç»­å‘ä¸‹æ£€ç´¢
+            if(position[x][y] != NOCHESS)//æ£€æµ‹åˆ°ç¬¬äºŒæšæ£‹å­
             {
                 if(IsSameSide(nChessID, position[x][y]))
                 {
-                    //ÓëÅÚÑÕÉ«ÏàÍ¬
+                    //ä¸ç‚®é¢œè‰²ç›¸åŒ
                     break;
                 }
                 else
                 {
-                    //ÓëÅÚÑÕÉ«²»Í¬
+                    //ä¸ç‚®é¢œè‰²ä¸åŒ
                     AddMove(i, j, x, y, nPly);
                     break;
                 }
@@ -982,35 +982,35 @@ void CMoveGenerator::Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly
         }
         else
         {
-            if(position[x][y] == NOCHESS)//Ã»Æå×Ó
+            if(position[x][y] == NOCHESS)//æ²¡æ£‹å­
             {
                 AddMove(i, j, x, y, nPly);
             }
-            else//ÓĞÆå×Ó
+            else//æœ‰æ£‹å­
             {
-                flag = true;//¼ì²âµ½µÚÒ»¸öÆå×Ó
+                flag = true;//æ£€æµ‹åˆ°ç¬¬ä¸€ä¸ªæ£‹å­
             }
         }
         x--;
     }
-    //²åÈëÏòÉÏ×ß·¨
+    //æ’å…¥å‘ä¸Šèµ°æ³•
     x = i;
     y = j - 1;
     while(y >= 0)
     {
         if(flag)
         {
-            //ÒÑ¾­¼ì²âµ½µÚÒ»Ã¶Æå×Ó,´ËÊ±Ó¦¸Ã¼ÌĞøÏòÏÂ¼ìË÷
-            if(position[x][y] != NOCHESS)//¼ì²âµ½µÚ¶şÃ¶Æå×Ó
+            //å·²ç»æ£€æµ‹åˆ°ç¬¬ä¸€æšæ£‹å­,æ­¤æ—¶åº”è¯¥ç»§ç»­å‘ä¸‹æ£€ç´¢
+            if(position[x][y] != NOCHESS)//æ£€æµ‹åˆ°ç¬¬äºŒæšæ£‹å­
             {
                 if(IsSameSide(nChessID, position[x][y]))
                 {
-                    //ÓëÅÚÑÕÉ«ÏàÍ¬
+                    //ä¸ç‚®é¢œè‰²ç›¸åŒ
                     break;
                 }
                 else
                 {
-                    //ÓëÅÚÑÕÉ«²»Í¬
+                    //ä¸ç‚®é¢œè‰²ä¸åŒ
                     AddMove(i, j, x, y, nPly);
                     break;
                 }
@@ -1018,35 +1018,35 @@ void CMoveGenerator::Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly
         }
         else
         {
-            if(position[x][y] == NOCHESS)//Ã»Æå×Ó
+            if(position[x][y] == NOCHESS)//æ²¡æ£‹å­
             {
                 AddMove(i, j, x, y, nPly);
             }
-            else//ÓĞÆå×Ó
+            else//æœ‰æ£‹å­
             {
-                flag = true;//¼ì²âµ½µÚÒ»¸öÆå×Ó
+                flag = true;//æ£€æµ‹åˆ°ç¬¬ä¸€ä¸ªæ£‹å­
             }
         }
         y--;
     }
-    //²åÈëÏòÏÂ×ß·¨
+    //æ’å…¥å‘ä¸‹èµ°æ³•
     x = i;
     y = j + 1;
     while(y < 10)
     {
         if(flag)
         {
-            //ÒÑ¾­¼ì²âµ½µÚÒ»Ã¶Æå×Ó,´ËÊ±Ó¦¸Ã¼ÌĞøÏòÏÂ¼ìË÷
-            if(position[x][y] != NOCHESS)//¼ì²âµ½µÚ¶şÃ¶Æå×Ó
+            //å·²ç»æ£€æµ‹åˆ°ç¬¬ä¸€æšæ£‹å­,æ­¤æ—¶åº”è¯¥ç»§ç»­å‘ä¸‹æ£€ç´¢
+            if(position[x][y] != NOCHESS)//æ£€æµ‹åˆ°ç¬¬äºŒæšæ£‹å­
             {
                 if(IsSameSide(nChessID, position[x][y]))
                 {
-                    //ÓëÅÚÑÕÉ«ÏàÍ¬
+                    //ä¸ç‚®é¢œè‰²ç›¸åŒ
                     break;
                 }
                 else
                 {
-                    //ÓëÅÚÑÕÉ«²»Í¬
+                    //ä¸ç‚®é¢œè‰²ä¸åŒ
                     AddMove(i, j, x, y, nPly);
                     break;
                 }
@@ -1054,13 +1054,13 @@ void CMoveGenerator::Gen_CannonMove(BYTE position[10][9], int i, int j, int nPly
         }
         else
         {
-            if(position[x][y] == NOCHESS)//Ã»Æå×Ó
+            if(position[x][y] == NOCHESS)//æ²¡æ£‹å­
             {
                 AddMove(i, j, x, y, nPly);
             }
-            else//ÓĞÆå×Ó
+            else//æœ‰æ£‹å­
             {
-                flag = true;//¼ì²âµ½µÚÒ»¸öÆå×Ó
+                flag = true;//æ£€æµ‹åˆ°ç¬¬ä¸€ä¸ªæ£‹å­
             }
         }
         y++;
