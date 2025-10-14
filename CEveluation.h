@@ -1,6 +1,8 @@
 #ifndef CEVELUATION_H
 #define CEVELUATION_H
 
+#include "define.h"
+
 // 定义每种棋子的基本价值
 // 兵100，士250，相250，马350，车500，炮350，将10000
 #define BASEVALUE_PAWN 100
@@ -28,7 +30,7 @@ public:
     CEveluation();
     virtual ~CEveluation();
     // 估值函数，对传入的棋盘打分，blsRedTurn为真时表示红方走
-    virtual int Eveluate(BYTE position[10][9], bool blsRedTurn);
+    virtual int Evaluate(BYTE position[10][9], bool blsRedTurn);
 protected:
     // 列举与指定位置的棋子相关的棋子
     int GetRelatePiece(BYTE position[10][9], int i, int j);

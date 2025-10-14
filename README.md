@@ -1,10 +1,33 @@
+## Build and Run (Ubuntu)
+
+Dependencies:
+- Qt5 Widgets
+- CMake >= 3.10
+- A C++ compiler (g++/clang++)
+
+Install deps:
+
+```bash
+sudo apt update
+sudo apt install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools cmake build-essential
+```
+
+Configure and build:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake --build build -j
+```
+
+Run the app:
+
+```bash
+./build/chess_app
+```
+
 # Chess_Man-Machine_Game
 一款象棋游戏
 
-本分支用于初始版本的开发
-持续更新中
 
-# release v0.1
-现已实现象棋中所有棋子的基本走法，2017.12.21提交
 
 

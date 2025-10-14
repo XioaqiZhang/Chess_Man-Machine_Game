@@ -11,7 +11,7 @@ public:
     static bool IsValidMove(BYTE position[10][9], int nFromX,
                             int nFromY, int nToX, int nToY);
     //产生给定棋盘上的所有合法走法
-    int CreatepossibleMove(BYTE position[10][9], int nPly, int nSide);
+    int CreatePossibleMove(BYTE position[10][9], int nPly, int nSide);
     //存放CreatepossibleMove产生的所有走法的队列
     CHESSMOVE m_MoveList[8][80];
 

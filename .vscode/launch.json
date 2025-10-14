@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/home/zty/workspace/Chess_Man-Machine_Game",
+      "program": "/home/zty/workspace/Chess_Man-Machine_Game/build/Debug/outDebug"
+    }
+  ]
+}

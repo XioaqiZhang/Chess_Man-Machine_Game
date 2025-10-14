@@ -1,0 +1,125 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "CMake: configure",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+			],
+			"group": "build"
+		},
+		{
+			"label": "CMake: build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake --build build -j"
+			],
+			"group": "build",
+			"dependsOn": [
+				"CMake: configure"
+			]
+		},
+		{
+			"label": "Run chess_app",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"./build/chess_app"
+			],
+			"group": "none",
+			"dependsOn": [
+				"CMake: build"
+			]
+		},
+		{
+			"label": "cmake-configure",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+			]
+		},
+		{
+			"label": "cmake-build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake --build build -j"
+			]
+		},
+		{
+			"label": "run-app",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"./build/chess_app || true"
+			]
+		},
+		{
+			"label": "cmake-rebuild",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake --build build -j"
+			],
+			"group": "build"
+		},
+		{
+			"label": "cmake-build-2",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"cmake --build build -j"
+			],
+			"group": "build"
+		},
+		{
+			"label": "run-app-2",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"./build/chess_app || true"
+			]
+		},
+		{
+			"label": "cmake-build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"set -euo pipefail; mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build . -j$(nproc)"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "cmake-build",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-lc",
+				"set -euo pipefail; cd build && cmake --build . -j$(nproc)"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}
